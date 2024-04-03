@@ -99,7 +99,7 @@ public class AppConfig {
 		List<Item> items = new ArrayList<>();
 		items.add(pizzaMargheritaBean());
 		items.add(lemonadeBean());
-		return new Ordine(table1(), 1, StatoOrdine.IN_CORSO, 1, LocalDateTime.now());
+		return new Ordine(table1(), 1, StatoOrdine.IN_CORSO, 1, LocalDateTime.now(), items);
 	}
 
 	@Bean(name = "menu")

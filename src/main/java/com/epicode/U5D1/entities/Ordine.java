@@ -9,7 +9,6 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString
 public class Ordine {
     private int id;
     private StatoOrdine status;
@@ -17,13 +16,14 @@ public class Ordine {
     private LocalDateTime acquisitionTime;
     private double totalAmount;
     private Tavolo table;
-    private List<Item> items = new ArrayList<>();
+    private List<Item> items;
 
-    public Ordine(Tavolo table, int id, StatoOrdine status, int covers, LocalDateTime acquisitionTime){
+    public Ordine(Tavolo table, int id, StatoOrdine status, int covers, LocalDateTime acquisitionTime, List<Item> items){
         this.table = table;
         this.id = id;
         this.status = status;
         this.covers = covers;
+        this.items = items;
         this.acquisitionTime = acquisitionTime;
         this.totalAmount = getTotalAmount();
     }
@@ -35,6 +35,19 @@ public class Ordine {
         }
         total += (table.getPrice()*this.covers);
         return total;
+    }
+
+    @Override
+    public String toString() {
+        return "Ordine{" +
+                "id=" + id +
+                ", status=" + status +
+                ", covers=" + covers +
+                ", acquisitionTime=" + acquisitionTime +
+                ", totalAmount=" + totalAmount +
+                ", table=" + table +
+                ", items=" + items +
+                '}';
     }
 
 }
