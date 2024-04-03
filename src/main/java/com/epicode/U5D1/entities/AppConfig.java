@@ -1,12 +1,16 @@
 package com.epicode.U5D1.entities;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
+@PropertySource("application.properties")
 public class AppConfig {
 	@Bean(name = "toppings_tomato")
 	public Topping toppingTomatoBean() {
@@ -85,11 +89,25 @@ public class AppConfig {
 		return new Drink("Wine", 607, 7.49);
 	}
 
+	@Bean(name = "table1")
+	public Tavolo table1() {
+		return new Tavolo(1, 6, StatoTavolo.LIBERO, 2);
+	}
+
+	@Bean(name = "order1")
+	public Ordine order1() {
+		List<Item> items = new ArrayList<>();
+		items.add(pizzaMargheritaBean());
+		items.add(lemonadeBean());
+		return new Ordine(table1(), 1, StatoOrdine.IN_CORSO, 1, LocalDateTime.now());
+	}
+
 	@Bean(name = "menu")
 	public Menu menuBean() {
 		List<Pizza> pizzaList = new ArrayList<>();
 		List<Drink> drinkList = new ArrayList<>();
 		List<Topping> toppingsList = new ArrayList<>();
+		List<Ordine> ordini = new ArrayList<>();
 
 		pizzaList.add(pizzaMargheritaBean());
 		pizzaList.add(pizzaHawaiianBean());
@@ -106,6 +124,8 @@ public class AppConfig {
 		toppingsList.add(toppingHamBean());
 		toppingsList.add(toppingPineappleBean());
 
-		return new Menu(pizzaList, drinkList, toppingsList);
+		ordini.add(order1());
+
+		return new Menu(pizzaList, drinkList, toppingsList, ordini);
 	}
 }

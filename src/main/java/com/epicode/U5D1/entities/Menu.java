@@ -15,6 +15,7 @@ public class Menu {
 	private List<Pizza> pizzaList;
 	private List<Drink> drinkList;
 	private List<Topping> toppingList;
+	private List<Ordine> ordini;
 
 	public void printMenu() {
 		System.out.println("******* Menu *******");
@@ -28,6 +29,10 @@ public class Menu {
 
 		System.out.println("DRINKS");
 		this.drinkList.forEach(System.out::println);
+		System.out.println();
+
+		System.out.println("ORDINI");
+		this.ordini.forEach(System.out::println);
 		System.out.println();
 
 	}

@@ -1,24 +1,40 @@
 package com.epicode.U5D1.entities;
+import lombok.*;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
-@Component
+@Getter
+@Setter
+@ToString
 public class Ordine {
-    private Tavolo tavolo;
-    private long id;
-    private StatoOrdine stato;
-    private int numeroCoperti;
-    private LocalTime oraDiAcquisizione;
-    private double costoTotale;
+    private int id;
+    private StatoOrdine status;
+    private int covers;
+    private LocalDateTime acquisitionTime;
+    private double totalAmount;
+    private Tavolo table;
+    private List<Item> items = new ArrayList<>();
 
-    public Ordine(Tavolo tavolo, long id, StatoOrdine stato, int numeroCoperti){
-        this.tavolo = tavolo;
+    public Ordine(Tavolo table, int id, StatoOrdine status, int covers, LocalDateTime acquisitionTime){
+        this.table = table;
         this.id = id;
-        this.stato = stato;
-        this.numeroCoperti = numeroCoperti;
-        this.oraDiAcquisizione = LocalTime.now();
-        this.costoTotale = tavolo.getPrezzo() * numeroCoperti;
+        this.status = status;
+        this.covers = covers;
+        this.acquisitionTime = acquisitionTime;
+        this.totalAmount = getTotalAmount();
+    }
+
+    public double getTotalAmount() {
+        double total = 0;
+        for (Item item : items) {
+            total += item.getPrice();
+        }
+        total += (table.getPrice()*this.covers);
+        return total;
     }
 
 }
