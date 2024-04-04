@@ -6,6 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 class Esercizio30102023ApplicationTests {
@@ -40,7 +41,16 @@ class Esercizio30102023ApplicationTests {
 	}
 
 
-    // Test 3 --- Controllo del numero massimo di coperti per tavolo
+	// Test 3 --- Controllo del numero massimo di coperti per tavolo / verifichiamo che se inseriamo un numero di coperti superiore al massimo l'app lancia un'eccezione
+	@Test
+	void numeroCopertiMassimo() {
+		System.out.println("Test 3");
+		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(U5D1Application.class);
+		Tavolo t1 = (Tavolo) ctx.getBean("Tavolo1");
+		assertThrows(RuntimeException.class, () -> {
+			Ordine o1 = new Ordine(1, StatoOrdine.IN_CORSO, 6, t1);
+		});
+	}
 
 
 
