@@ -15,10 +15,6 @@ public class U5D1Application {
 
 		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(U5D1Application.class);
 
-		Menu m = (Menu) ctx.getBean("menu");
-
-		m.printMenu();
-		ctx.close();
 	}
 
 }

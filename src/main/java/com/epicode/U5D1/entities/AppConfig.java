@@ -12,6 +12,7 @@ import java.util.List;
 @Configuration
 @PropertySource("application.properties")
 public class AppConfig {
+	// ------------------------------ Toppings ---------------------------------
 	@Bean(name = "toppings_tomato")
 	public Topping toppingTomatoBean() {
 		return new Topping("Tomato", 0, 0);
@@ -37,7 +38,7 @@ public class AppConfig {
 		return new Topping("Salami", 86, 0.99);
 	}
 
-
+	// ------------------------------ Pizze ---------------------------------
 	@Bean(name = "pizza_margherita")
 	public Pizza pizzaMargheritaBean() {
 		List<Topping> tList = new ArrayList<>();
@@ -74,6 +75,8 @@ public class AppConfig {
 		return new Pizza("Salami Pizza XL", tList, true);
 	}
 
+
+	// ------------------------------ Drink ---------------------------------
 	@Bean(name = "lemonade")
 	public Drink lemonadeBean() {
 		return new Drink("Lemonade", 128, 1.29);
@@ -89,19 +92,23 @@ public class AppConfig {
 		return new Drink("Wine", 607, 7.49);
 	}
 
-	@Bean(name = "table1")
-	public Tavolo table1() {
-		return new Tavolo(1, 6, StatoTavolo.LIBERO, 2);
+	// ------------------------------ Tavoli ---------------------------------
+	@Bean("Tavolo1")
+	Tavolo getTable1(@Value("${costo.coperto}") double price) {
+		return new Tavolo(1, 5, StatoTavolo.OCCUPATO, price);
 	}
 
-	@Bean(name = "order1")
-	public Ordine order1() {
-		List<Item> items = new ArrayList<>();
-		items.add(pizzaMargheritaBean());
-		items.add(lemonadeBean());
-		return new Ordine(table1(), 1, StatoOrdine.IN_CORSO, 1, LocalDateTime.now(), items);
+	@Bean("Tavolo2")
+	Tavolo getTable2(@Value("${costo.coperto}") double price) {
+		return new Tavolo(2, 4, StatoTavolo.LIBERO, price);
 	}
 
+	@Bean("Tavolo3")
+	Tavolo getTable3(@Value("${costo.coperto}") double price) {
+		return new Tavolo(3, 8, StatoTavolo.OCCUPATO, price);
+	}
+
+	// ------------------------------ Menu ---------------------------------
 	@Bean(name = "menu")
 	public Menu menuBean() {
 		List<Pizza> pizzaList = new ArrayList<>();
@@ -123,8 +130,6 @@ public class AppConfig {
 		toppingsList.add(toppingSalamiBean());
 		toppingsList.add(toppingHamBean());
 		toppingsList.add(toppingPineappleBean());
-
-		ordini.add(order1());
 
 		return new Menu(pizzaList, drinkList, toppingsList, ordini);
 	}

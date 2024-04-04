@@ -11,5 +11,11 @@ public class Tavolo {
     private int maxCovers;
     private StatoTavolo isOccupied;
     private double price;
+
+    public void print() {
+        System.out.println("numero tavolo--> " + number);
+        System.out.println("numero massimo coperti--> " + maxCovers);
+        System.out.println("occupato/libero--> " + isOccupied);
+    }
 }
 
