@@ -12,7 +12,7 @@ class Esercizio30102023ApplicationTests {
 
 	// Test 1 --- Prezzo giusto dell'ordine
 	@Test
-	void contextLoads() {
+	void PriceOrderTest1() {
 		System.out.println("Test 1");
 
 			AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(U5D1Application.class);
@@ -28,8 +28,20 @@ class Esercizio30102023ApplicationTests {
 			ctx.close();
 	}
 
-	// Test 2 ---
+	// Test 2 --- Controllo del giusot numero di prodotti nell'ordine
 	    @Test
+		void nuemeroProdottiGiusto() {
+        System.out.println("Test 2");
+		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(U5D1Application.class);
+		Tavolo t1 = (Tavolo) ctx.getBean("Tavolo1");
+		Ordine o1 = new Ordine(1, StatoOrdine.IN_CORSO, 1, t1);
+		o1.addItem(ctx.getBean("pizza_margherita", Pizza.class));
+		assertEquals(1, o1.getItems().size());
+	}
+
+
+    // Test 3 --- Controllo del numero massimo di coperti per tavolo
+
 
 
 }
